@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <div class="container">
         <h2>Login</h2>
-        <form action="home.html" method="POST">
+        <form id="loginForm">
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username"><br>
             <label for="password">Password:</label><br>
@@ -17,5 +17,31 @@
             <input type="submit" value="Login">
         </form>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('#loginForm').submit(function(event) {
+                event.preventDefault(); // Prevent the form from submitting normally
+
+                // Get form data
+                var formData = $(this).serialize();
+
+                // Send form data to backend server
+                $.ajax({
+                    type: 'POST',
+                    url: 'https://example.com/login', // Replace with your backend server URL
+                    data: formData,
+                    success: function(response) {
+                        // Redirect to home page or handle response
+                        window.location.href = 'home.html';
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
